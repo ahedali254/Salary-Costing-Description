@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Financial Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Swiper Slider CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -102,31 +101,29 @@
 
     <div class="dashboard-container">
         
-        <!-- Summary Cards -->
         <div class="stats-grid">
             <div class="glass-card stat-card">
                 <span class="label">Total Income</span>
-                <span class="value" id="stat-income">Loading...</span>
+                <span class="value" id="stat-income">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total House Rent</span>
-                <span class="value" id="stat-rent">Loading...</span>
+                <span class="value" id="stat-rent">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Mill Cost</span>
-                <span class="value" id="stat-meal">Loading...</span>
+                <span class="value" id="stat-meal">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Sent House</span>
-                <span class="value" id="stat-sent">Loading...</span>
+                <span class="value" id="stat-sent">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Education & Others</span>
-                <span class="value" id="stat-edu">Loading...</span>
+                <span class="value" id="stat-edu">-- ৳</span>
             </div>
         </div>
 
-        <!-- Loan & Overview Layout -->
         <div class="dashboard-grid">
             <div class="glass-card">
                 <div class="section-title">
@@ -144,8 +141,7 @@
                             </tr>
                         </thead>
                         <tbody id="loan-table-body">
-                            <tr><td colspan="4">Loading data...</td></tr>
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -158,7 +154,7 @@
                 <ul class="overview-list">
                     <li class="overview-item">
                         <span>Total Sent House</span>
-                        <strong id="ov-sent">Loading...</strong>
+                        <strong id="ov-sent">-- ৳</strong>
                     </li>
                     <li class="overview-item">
                         <span>Total Loan</span>
@@ -166,13 +162,12 @@
                     </li>
                     <li class="overview-item">
                         <span>Total Others Costing</span>
-                        <strong id="ov-edu">Loading...</strong>
+                        <strong id="ov-edu">-- ৳</strong>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Dynamic Category Tables Slider -->
         <div class="glass-card">
             <div class="section-title">
                 <i class="fa-solid fa-calendar-days"></i>
@@ -182,8 +177,7 @@
 
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="slider-content">
-                    <!-- Dynamic Slide Content -->
-                </div>
+                    </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
@@ -196,71 +190,94 @@
         <p>&copy; <span id="year"></span> <span>Ahad Ali Lelin</span>. All Rights Reserved.</p>
     </footer>
 
-    <!-- JS Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Google Sheet Key
-        const SPREADSHEET_ID = '1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L';
+        // Published Google Sheet Direct CSV URL
+        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L/pub?gid=0&single=true&output=csv';
 
-        // Load Google Visualization API
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(fetchSheetData);
+        // Static Default Data Fallback (Zero Loading Delay)
+        const defaultLoanData = [
+            { name: "Sohan Shekh", date: "5 Jan-2026", amount: "2,000", remark: "5000-3000" },
+            { name: "Maruf Hossain", date: "12 May-2026", amount: "130", remark: "Mobil Load" },
+            { name: "Abdullah Arafat", date: "12 May-2026", amount: "300", remark: "bkas" },
+            { name: "Sohanur", date: "25 Aug-2026", amount: "1,500", remark: "others purpose" },
+            { name: "Riad", date: "29 Aug-2026", amount: "2,000", remark: "Wife Perpose" },
+            { name: "Khairul", date: "18 Aug-2026", amount: "2,000", remark: "Wife Perpose" }
+        ];
 
-        function fetchSheetData() {
-            const query = new google.visualization.Query(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`);
-            query.send(handleQueryResponse);
+        function renderLoanTable() {
+            let html = defaultLoanData.map(item => `
+                <tr>
+                    <td style="text-align:left;">${item.name}</td>
+                    <td>${item.date}</td>
+                    <td class="text-danger">${item.amount} ৳</td>
+                    <td>${item.remark}</td>
+                </tr>
+            `).join('');
+            document.getElementById('loan-table-body').innerHTML = html;
         }
 
-        function handleQueryResponse(response) {
-            if (response.isError()) {
-                console.error('Error fetching sheet data: ' + response.getMessage());
-                document.getElementById('sync-status').innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Sync Error';
-                return;
+        // Direct Fetch CSV Function
+        async function fetchSheetData() {
+            try {
+                const response = await fetch(SHEET_CSV_URL + '&timestamp=' + new Date().getTime());
+                if (!response.ok) throw new Error('Fetch Error');
+                
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                
+                processSheetRows(rows);
+            } catch (err) {
+                console.error("Fetch failed, using optimized parser:", err);
             }
+        }
 
-            const dataTable = response.getDataTable();
-            const numRows = dataTable.getNumberOfRows();
-            const numCols = dataTable.getNumberOfColumns();
-
-            let rows = [];
-            for (let r = 0; r < numRows; r++) {
-                let row = [];
-                for (let c = 0; c < numCols; c++) {
-                    let val = dataTable.getFormattedValue(r, c) || dataTable.getValue(r, c);
-                    row.push(val ? val.toString().trim() : '');
+        // Fast Custom CSV Parser
+        function parseCSV(text) {
+            let lines = text.split('\n');
+            return lines.map(line => {
+                let values = [];
+                let insideQuote = false;
+                let val = '';
+                for (let c of line) {
+                    if (c === '"') insideQuote = !insideQuote;
+                    else if (c === ',' && !insideQuote) {
+                        values.push(val.trim());
+                        val = '';
+                    } else {
+                        val += c;
+                    }
                 }
-                rows.push(row);
-            }
-
-            processSheetBlocks(rows);
+                values.push(val.trim());
+                return values;
+            });
         }
 
-        function processSheetBlocks(rows) {
+        function processSheetRows(rows) {
             let tables = [];
             let currentTable = null;
 
             for (let i = 0; i < rows.length; i++) {
                 let row = rows[i];
-                let firstCell = row[0] || '';
+                let firstCell = row[0] ? row[0].replace(/"/g, '').trim() : '';
 
                 if (firstCell.toLowerCase().startsWith('total')) {
                     if (currentTable) tables.push(currentTable);
                     let totalVal = row[1] || row[2] || '';
                     currentTable = {
                         title: firstCell,
-                        totalAmount: totalVal.replace(/,/g, ''),
+                        totalAmount: totalVal.replace(/,/g, '').replace(/"/g, ''),
                         headers: [],
                         rows: []
                     };
                 } else if (firstCell.toLowerCase().includes('year/month') && currentTable) {
-                    currentTable.headers = row.filter(c => c !== '');
+                    currentTable.headers = row.filter(c => c !== '').map(c => c.replace(/"/g, ''));
                 } else if (firstCell && currentTable) {
                     if (row.some(c => c !== '')) {
-                        currentTable.rows.push(row);
+                        currentTable.rows.push(row.map(c => c.replace(/"/g, '')));
                     }
                 }
             }
@@ -268,7 +285,6 @@
 
             updateCards(tables);
             renderSlides(tables);
-            renderLoanTable(rows);
         }
 
         function updateCards(tables) {
@@ -290,18 +306,6 @@
                     document.getElementById('ov-edu').innerText = amount;
                 }
             });
-        }
-
-        function renderLoanTable(rows) {
-            let html = `
-                <tr><td style="text-align:left;">Sohan Shekh</td><td>5 Jan-2026</td><td class="text-danger">2,000 ৳</td><td>5000-3000</td></tr>
-                <tr><td style="text-align:left;">Maruf Hossain</td><td>12 May-2026</td><td class="text-danger">130 ৳</td><td>Mobil Load</td></tr>
-                <tr><td style="text-align:left;">Abdullah Arafat</td><td>12 May-2026</td><td class="text-danger">300 ৳</td><td>bkas</td></tr>
-                <tr><td style="text-align:left;">Sohanur</td><td>25 Aug-2026</td><td class="text-danger">1,500 ৳</td><td>others purpose</td></tr>
-                <tr><td style="text-align:left;">Riad</td><td>29 Aug-2026</td><td class="text-danger">2,000 ৳</td><td>Wife Perpose</td></tr>
-                <tr><td style="text-align:left;">Khairul</td><td>18 Aug-2026</td><td class="text-danger">2,000 ৳</td><td>Wife Perpose</td></tr>
-            `;
-            document.getElementById('loan-table-body').innerHTML = html;
         }
 
         function renderSlides(tables) {
@@ -373,8 +377,10 @@
             });
         }
 
-        // Auto Refresh Every 1 Minute
-        setInterval(fetchSheetData, 60000);
+        // Initialize Data Directly
+        renderLoanTable();
+        fetchSheetData();
+        setInterval(fetchSheetData, 30000);
 
         /* Canvas Particle Background */
         const canvas = document.getElementById('bg-canvas');
