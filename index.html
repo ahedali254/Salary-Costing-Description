@@ -3,188 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Financial Dashboard - Slider View</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <!-- Swiper CSS (Slider Feature) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+    <title>My Salary & Costing Description</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #050b14; color: #fff; overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #050b14; pointer-events: none; }
         
-        /* Swiper Custom Navigation Buttons */
-        .swiper-button-next, .swiper-button-prev {
-            color: #1e293b;
-            background: #ffffff;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+        /* Fixed Header Always Visible */
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            padding: 1rem 7%; 
+            background: rgba(5, 11, 20, 0.95); 
+            backdrop-filter: blur(12px); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 100; 
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15); 
         }
-        .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 18px;
-            font-weight: bold;
+
+        .logo { 
+            font-size: 1.5rem; 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-weight: 700; 
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
         }
-        .swiper-pagination-bullet-active {
-            background: #2563eb !important;
-            width: 24px;
+
+        .logo-icon {
+            font-size: 1.3rem;
+            color: #00f0ff;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8));
+        }
+
+        .logo-accent {
+            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            padding: 7rem 7% 3rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i { color: #00f0ff; }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #00f0ff;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Two Column Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Custom Neon Table Styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(0, 240, 255, 0.08);
+            color: #00f0ff;
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+            white-space: nowrap;
+        }
+
+        tr:hover td {
+            background: rgba(0, 240, 255, 0.03);
+            color: #fff;
+        }
+
+        .text-neon { color: #00f0ff !important; font-weight: 700; }
+        .text-danger { color: #ff4757 !important; font-weight: 700; }
+
+        /* Overview List */
+        .overview-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .overview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
+        }
+
+        .overview-item span { color: #a0aec0; font-size: 0.9rem; }
+        .overview-item strong { color: #00f0ff; font-size: 1.05rem; }
+
+        /* Footer */
+        .footer {
+            background: rgba(5, 11, 20, 0.95);
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            padding: 1.2rem 7%;
+            text-align: center;
+            margin-top: auto;
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        .footer span { color: #00f0ff; }
+
+        @media (max-width: 991px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-container { padding-top: 6rem; }
         }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen py-8 px-4 flex flex-col justify-center">
+<body>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="max-w-5xl mx-auto w-full space-y-6">
+    <header class="header">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-chart-line logo-icon"></i> My Financial<span class="logo-accent"> Dashboard</span>
+        </a>
+    </header>
+
+    <div class="dashboard-container">
         
-        <!-- Header Design -->
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
-            <h1 class="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 bg-clip-text text-transparent tracking-tight">
-                My Salary & Costing Description
-            </h1>
+        <div class="stats-grid">
+            <div class="glass-card stat-card">
+                <span class="label">Total Income</span>
+                <span class="value">6,94,485 ৳</span>
+            </div>
+            <div class="glass-card stat-card">
+                <span class="label">Total House Rent</span>
+                <span class="value">64,400 ৳</span>
+            </div>
+            <div class="glass-card stat-card">
+                <span class="label">Total Mill Cost</span>
+                <span class="value">81,100 ৳</span>
+            </div>
+            <div class="glass-card stat-card">
+                <span class="label">Total Sent House</span>
+                <span class="value">3,79,500 ৳</span>
+            </div>
+            <div class="glass-card stat-card">
+                <span class="label">Education & Others</span>
+                <span class="value">1,69,485 ৳</span>
+            </div>
         </div>
 
-        <!-- Main Swiper Slider Container -->
-        <div class="swiper mySwiper p-2 pb-12 relative">
-            <div class="swiper-wrapper">
-                
-                <!-- SLIDE 1: Total Overview Summary Cards -->
-                <div class="swiper-slide">
-                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/80 space-y-6">
-                        <h3 class="font-bold text-xl text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
-                            <span>📊</span> ড্যাশবোর্ড সারসংক্ষেপ (Dashboard Overview)
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                                <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Total Income</span>
-                                <p class="text-2xl font-black text-blue-600">6,94,485 ৳</p>
-                            </div>
-                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                                <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Total House Rent</span>
-                                <p class="text-2xl font-black text-indigo-600">64,400 ৳</p>
-                            </div>
-                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                                <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Total Mill Cost</span>
-                                <p class="text-2xl font-black text-amber-500">81,100 ৳</p>
-                            </div>
-                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                                <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Total Sent House</span>
-                                <p class="text-2xl font-black text-purple-600">3,79,500 ৳</p>
-                            </div>
-                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 col-span-2 md:col-span-2">
-                                <span class="text-xs font-bold text-slate-400 uppercase block mb-1">Education & Others</span>
-                                <p class="text-2xl font-black text-emerald-600">1,69,485 ৳</p>
-                            </div>
-                        </div>
-                    </div>
+        <div class="dashboard-grid">
+            
+            <div class="glass-card">
+                <div class="section-title">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    ঋণ ও ধারের বিবরণ (Loan Details)
                 </div>
-
-                <!-- SLIDE 2: Year/Month Records Table -->
-                <div class="swiper-slide">
-                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/80 space-y-4">
-                        <h3 class="font-bold text-xl text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
-                            <span>📋</span> সাল ও মাসওয়ারি খরচ ও আয় (Year/Month Records)
-                        </h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse text-sm">
-                                <thead>
-                                    <tr class="bg-slate-900 text-slate-200">
-                                        <th class="p-3 rounded-l-xl">Year/Month</th>
-                                        <th class="p-3 text-center">2023</th>
-                                        <th class="p-3 text-center">2024</th>
-                                        <th class="p-3 text-center">2025</th>
-                                        <th class="p-3 text-center">2026</th>
-                                        <th class="p-3 text-center">2027</th>
-                                        <th class="p-3 text-center rounded-r-xl">2028</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100 text-center">
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">January</td><td class="p-2.5">15,850</td><td class="p-2.5">15,750</td><td class="p-2.5">17,750</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">February</td><td class="p-2.5">15,850</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">March</td><td class="p-2.5">6,000</td><td class="p-2.5">15,850</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">April</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">May</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">June</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5">14,500</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">July</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5">15,535</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">August</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5">3,090</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                    <tr class="hover:bg-slate-50"><td class="p-2.5 font-semibold text-slate-700 text-left">September</td><td class="p-2.5">14,450</td><td class="p-2.5">15,750</td><td class="p-2.5">15,750</td><td class="p-2.5 font-bold text-blue-600">2,110</td><td class="p-2.5 text-slate-300">-</td><td class="p-2.5 text-slate-300">-</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>নাম (Name)</th>
+                                <th>তারিখ (Date)</th>
+                                <th>পরিমাণ (Amount)</th>
+                                <th>মন্তব্য (Remarks)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sohan Shekh</td>
+                                <td>5 Jan-2026</td>
+                                <td class="text-danger">2,000 ৳</td>
+                                <td>5000-3000</td>
+                            </tr>
+                            <tr>
+                                <td>Maruf Hossain</td>
+                                <td>12 May-2026</td>
+                                <td class="text-danger">130 ৳</td>
+                                <td>Mobil Load</td>
+                            </tr>
+                            <tr>
+                                <td>Abdullah Arafat</td>
+                                <td>12 May-2026</td>
+                                <td class="text-danger">300 ৳</td>
+                                <td>bkas</td>
+                            </tr>
+                            <tr>
+                                <td>Sohanur</td>
+                                <td>25 Aug-2026</td>
+                                <td class="text-danger">1,500 ৳</td>
+                                <td>others purpose</td>
+                            </tr>
+                            <tr>
+                                <td>Riad</td>
+                                <td>29 Aug-2026</td>
+                                <td class="text-danger">2,000 ৳</td>
+                                <td>Wife Perpose</td>
+                            </tr>
+                            <tr>
+                                <td>Khairul</td>
+                                <td>18 Aug-2026</td>
+                                <td class="text-danger">2,000 ৳</td>
+                                <td>Wife Perpose</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <!-- SLIDE 3: Loan Details Table -->
-                <div class="swiper-slide">
-                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/80 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                            <h3 class="font-bold text-xl text-slate-800 flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></span>
-                                ঋণ ও ধারের বিবরণ (Loan Details)
-                            </h3>
-                            <span class="bg-rose-50 text-rose-600 text-xs font-bold px-3 py-1.5 rounded-full border border-rose-100">
-                                Total Loan: 7,930 ৳
-                            </span>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm border-separate border-spacing-y-2">
-                                <thead>
-                                    <tr class="text-slate-400 text-xs font-semibold uppercase">
-                                        <th class="pb-2 px-3">নাম (Name)</th>
-                                        <th class="pb-2 px-3">তারিখ (Date)</th>
-                                        <th class="pb-2 px-3">পরিমাণ (Amount)</th>
-                                        <th class="pb-2 px-3">মন্তব্য (Remarks)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Sohan Shekh</td><td class="p-3 text-slate-500">5 Jan-2026</td><td class="p-3 font-bold text-rose-600">2,000 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">5000-3000</td></tr>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Maruf Hossain</td><td class="p-3 text-slate-500">12 May-2026</td><td class="p-3 font-bold text-rose-600">130 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">Mobil Load</td></tr>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Abdullah Arafat</td><td class="p-3 text-slate-500">12 May-2026</td><td class="p-3 font-bold text-rose-600">300 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">bkas</td></tr>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Sohanur</td><td class="p-3 text-slate-500">25 Aug-2026</td><td class="p-3 font-bold text-rose-600">1,500 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">others purpose</td></tr>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Riad</td><td class="p-3 text-slate-500">29 Aug-2026</td><td class="p-3 font-bold text-rose-600">2,000 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">Wife Perpose</td></tr>
-                                    <tr class="bg-slate-50/80"><td class="p-3 font-semibold text-slate-800 rounded-l-xl">Khairul</td><td class="p-3 text-slate-500">18 Aug-2026</td><td class="p-3 font-bold text-rose-600">2,000 ৳</td><td class="p-3 text-slate-400 text-xs rounded-r-xl">Wife Perpose</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- Navigation Controls -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
+            <div class="glass-card">
+                <div class="section-title">
+                    <i class="fa-solid fa-list-check"></i>
+                    সারসংক্ষেপ (Overview)
+                </div>
+                <ul class="overview-list">
+                    <li class="overview-item">
+                        <span>Total Sent House</span>
+                        <strong>3,79,500 ৳</strong>
+                    </li>
+                    <li class="overview-item">
+                        <span>Total Loan</span>
+                        <strong class="text-danger">7,930 ৳</strong>
+                    </li>
+                    <li class="overview-item">
+                        <span>Total Others Costing</span>
+                        <strong>5,200 ৳</strong>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title">
+                <i class="fa-solid fa-calendar-days"></i>
+                সাল ও মাসওয়ারি খরচ ও আয়ের বিবরণ (Year/Month Records)
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year/Month</th>
+                            <th>2023</th>
+                            <th>2024</th>
+                            <th>2025</th>
+                            <th>2026</th>
+                            <th>2027</th>
+                            <th>2028</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>January</td><td>15,850</td><td>15,750</td><td>17,750</td><td>-</td><td>-</td><td>-</td></tr>
+                        <tr><td>February</td><td>15,850</td><td>15,750</td><td>15,750</td><td>-</td><td>-</td><td>-</td></tr>
+                        <tr><td>March</td><td>6,000</td><td>15,850</td><td>15,750</td><td>15,750</td><td>-</td><td>-</td></tr>
+                        <tr><td>April</td><td>14,450</td><td>15,750</td><td>15,750</td><td>15,750</td><td>-</td><td>-</td></tr>
+                        <tr><td>May</td><td>14,450</td><td>15,750</td><td>15,750</td><td>15,750</td><td>-</td><td>-</td></tr>
+                        <tr><td>June</td><td>14,450</td><td>15,750</td><td>15,750</td><td>14,500</td><td>-</td><td>-</td></tr>
+                        <tr><td>July</td><td>14,450</td><td>15,750</td><td>15,750</td><td>15,535</td><td>-</td><td>-</td></tr>
+                        <tr><td>August</td><td>14,450</td><td>15,750</td><td>15,750</td><td>3,090</td><td>-</td><td>-</td></tr>
+                        <tr><td>September</td><td>14,450</td><td>15,750</td><td>15,750</td><td class="text-neon">2,110</td><td>-</td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> <span>Ahad Ali Lelin</span>. All Rights Reserved.</p>
+    </footer>
 
-    <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            spaceBetween: 30,
-            effect: "slide",
-            loop: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        const numberOfParticles = 60;
+
+        function resizeCanvas() { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+        }
+        resizeCanvas();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
         });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = '#00f0ff';
+            }
+            update() {
+                this.x += this.speedX; 
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; 
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; 
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; 
+                ctx.fill();
+            }
+        }
+
+        function init() { 
+            particlesArray = []; 
+            for (let i = 0; i < numberOfParticles; i++) { 
+                particlesArray.push(new Particle()); 
+            } 
+        }
+
+        function animate() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            for (let i = 0; i < particlesArray.length; i++) { 
+                particlesArray[i].update(); 
+                particlesArray[i].draw(); 
+
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.8 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            } 
+            requestAnimationFrame(animate); 
+        }
+
+        init(); 
+        animate();
     </script>
 </body>
 </html>
