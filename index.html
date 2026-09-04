@@ -104,13 +104,18 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // 🔴 আপনার দেয়া Google Sheet-এর CSV লিংকটি সরাসরি আপডেট করা হলো
-        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L/pub?gid=0&single=true&output=csv';
+        // 🔴 আপনার Google Sheet-এর Published CSV Link টি এখানে বসান
+        const GOOGLE_SHEET_CSV_URL = 'YOUR_GOOGLE_SHEET_PUBLISHED_CSV_URL_HERE';
 
         // Google Sheet থেকে অটো ডেটা ফেচ করার ফাংশন
         async function fetchSheetData() {
+            if (GOOGLE_SHEET_CSV_URL === 'YOUR_GOOGLE_SHEET_PUBLISHED_CSV_URL_HERE') {
+                console.warn("Please replace GOOGLE_SHEET_CSV_URL with your actual published CSV link.");
+                return;
+            }
+
             try {
-                const response = await fetch(GOOGLE_SHEET_CSV_URL + '&t=' + new Date().getTime());
+                const response = await fetch(GOOGLE_SHEET_CSV_URL + '?t=' + new Date().getTime());
                 const data = await response.text();
                 parseAndRenderData(data);
             } catch (error) {
@@ -123,13 +128,13 @@
             const rows = csvText.split('\n').map(row => row.split(','));
             if (rows.length < 2) return;
 
-            const headers = rows[0]; 
+            const headers = rows[0]; // [Year/Month, 2023, 2024, ...]
             const sliderWrapper = document.getElementById('slider-content');
-            sliderWrapper.innerHTML = ''; 
+            sliderWrapper.innerHTML = ''; // Clear previous content
 
             // প্রতিটি বছরের জন্য স্লাইড তৈরি
             for (let col = 1; col < headers.length; col++) {
-                const year = headers[col] ? headers[col].trim() : '';
+                const year = headers[col].trim();
                 if (!year) continue;
 
                 let tableRowsHtml = '';
@@ -184,7 +189,7 @@
                 spaceBetween: 20,
                 loop: true,
                 autoplay: {
-                    delay: 3500,
+                    delay: 4000,
                     disableOnInteraction: false,
                 },
                 pagination: {
@@ -202,9 +207,9 @@
             });
         }
 
-        // প্রথমবার ডেটা লোড করবে এবং প্রতি ২ মিনিটে নতুন ডেটা অটো সিঙ্ক করবে
+        // প্রথমে ডেটা লোড করবে এবং প্রতি ৫ মিনিটে ব্যাকগ্রাউন্ডে শিট সিঙ্ক করবে
         fetchSheetData();
-        setInterval(fetchSheetData, 120000); // 2 Minutes Refresh Rate
+        setInterval(fetchSheetData, 300000); // 5 Minutes Auto-Refresh
 
         // Background Particle Effect
         const canvas = document.getElementById('bg-canvas');
