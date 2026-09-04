@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Salary & Costing Description</title>
+    <title>My Financial Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Swiper Slider CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -12,186 +12,67 @@
         body { background-color: #050b14; color: #fff; overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #050b14; pointer-events: none; }
         
-        /* Fixed Header */
+        /* Header */
         .header { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            padding: 1rem 7%; 
-            background: rgba(5, 11, 20, 0.95); 
-            backdrop-filter: blur(12px); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            z-index: 100; 
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15); 
+            position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 7%; 
+            background: rgba(5, 11, 20, 0.95); backdrop-filter: blur(12px); 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 100; border-bottom: 1px solid rgba(0, 240, 255, 0.15); 
         }
 
-        .logo { 
-            font-size: 1.5rem; 
-            color: #ffffff; 
-            text-decoration: none; 
-            font-weight: 700; 
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .logo-icon {
-            font-size: 1.3rem;
-            color: #00f0ff;
-            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8));
-        }
-
-        .logo-accent {
-            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .logo { font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.6rem; }
+        .logo-icon { font-size: 1.3rem; color: #00f0ff; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8)); }
+        .logo-accent { background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* Dashboard Container */
         .dashboard-container {
-            padding: 7rem 7% 3rem;
-            max-width: 1300px;
-            margin: 0 auto;
-            width: 100%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            padding: 7rem 7% 3rem; max-width: 1300px; margin: 0 auto; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 2rem;
         }
 
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .section-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
         .section-title i { color: #00f0ff; }
 
         /* Glassmorphism Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 16px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            border-color: rgba(0, 240, 255, 0.5);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
-        }
+        .glass-card:hover { border-color: rgba(0, 240, 255, 0.5); box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); }
 
         /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.2rem;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+        .stat-card { display: flex; flex-direction: column; gap: 0.5rem; }
+        .stat-card .label { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.8px; }
+        .stat-card .value { font-size: 1.5rem; font-weight: 800; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
 
-        .stat-card {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .stat-card .label {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #e2e8f0;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .stat-card .value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #00f0ff;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-        }
-
-        /* Two Column Layout */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-        }
+        /* Layout Grid */
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
 
         /* Tables Styling */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: rgba(0, 240, 255, 0.12);
-            color: #00f0ff;
-            padding: 0.75rem 0.6rem;
-            font-weight: 700;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            white-space: nowrap;
-        }
-
-        td {
-            padding: 0.65rem 0.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #d1d5db;
-            white-space: nowrap;
-        }
-
-        tr:hover td {
-            background: rgba(0, 240, 255, 0.05);
-            color: #fff;
-        }
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.88rem; }
+        th { background: rgba(0, 240, 255, 0.12); color: #00f0ff; padding: 0.75rem 0.6rem; font-weight: 700; border: 1px solid rgba(0, 240, 255, 0.2); white-space: nowrap; }
+        td { padding: 0.65rem 0.6rem; border: 1px solid rgba(255, 255, 255, 0.08); color: #d1d5db; white-space: nowrap; }
+        tr:hover td { background: rgba(0, 240, 255, 0.05); color: #fff; }
 
         .month-col { text-align: left; font-weight: 600; color: #fff; background: rgba(255,255,255,0.02); }
         .total-row td { font-weight: 800; color: #00f0ff; background: rgba(0, 240, 255, 0.08); }
-        .text-neon { color: #00f0ff !important; font-weight: 600; }
         .text-danger { color: #ff4757 !important; font-weight: 700; }
 
         /* Overview List */
-        .overview-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .overview-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-
+        .overview-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .overview-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; }
         .overview-item span { color: #a0aec0; font-size: 0.9rem; }
         .overview-item strong { color: #00f0ff; font-size: 1.05rem; }
 
-        /* Swiper Slider Adjustments */
+        /* Swiper Slider */
         .swiper { width: 100%; padding-bottom: 3.5rem !important; }
         .swiper-slide { height: auto; }
         .slide-card-header {
-            font-size: 1.2rem; font-weight: 800; color: #00f0ff; 
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); margin-bottom: 1rem;
-            text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 0.6rem;
+            font-size: 1.15rem; font-weight: 800; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); 
+            margin-bottom: 1rem; text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 0.6rem;
             display: flex; align-items: center; justify-content: center; gap: 0.5rem;
         }
         .swiper-button-next, .swiper-button-prev { color: #00f0ff !important; }
@@ -199,20 +80,9 @@
         .swiper-pagination-bullet-active { background: #00f0ff !important; box-shadow: 0 0 10px #00f0ff; }
         
         .sync-tag { font-size: 0.75rem; background: rgba(0, 240, 255, 0.1); color: #00f0ff; padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.3); margin-left: auto; }
-
         .spin { animation: fa-spin 2s infinite linear; }
 
-        /* Footer */
-        .footer {
-            background: rgba(5, 11, 20, 0.95);
-            border-top: 1px solid rgba(0, 240, 255, 0.15);
-            padding: 1.2rem 7%;
-            text-align: center;
-            margin-top: auto;
-            color: #a0aec0;
-            font-size: 0.9rem;
-        }
-
+        .footer { background: rgba(5, 11, 20, 0.95); border-top: 1px solid rgba(0, 240, 255, 0.15); padding: 1.2rem 7%; text-align: center; margin-top: auto; color: #a0aec0; font-size: 0.9rem; }
         .footer span { color: #00f0ff; }
 
         @media (max-width: 991px) {
@@ -232,33 +102,32 @@
 
     <div class="dashboard-container">
         
-        <!-- Stats Grid (স্বয়ংক্রিয় আপডেট হবে) -->
+        <!-- Summary Cards -->
         <div class="stats-grid">
             <div class="glass-card stat-card">
                 <span class="label">Total Income</span>
-                <span class="value" id="stat-income">-- ৳</span>
+                <span class="value" id="stat-income">Loading...</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total House Rent</span>
-                <span class="value" id="stat-rent">-- ৳</span>
+                <span class="value" id="stat-rent">Loading...</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Mill Cost</span>
-                <span class="value" id="stat-meal">-- ৳</span>
+                <span class="value" id="stat-meal">Loading...</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Sent House</span>
-                <span class="value" id="stat-sent">-- ৳</span>
+                <span class="value" id="stat-sent">Loading...</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Education & Others</span>
-                <span class="value" id="stat-edu">-- ৳</span>
+                <span class="value" id="stat-edu">Loading...</span>
             </div>
         </div>
 
-        <!-- Dashboard Grid -->
+        <!-- Loan & Overview Layout -->
         <div class="dashboard-grid">
-            
             <div class="glass-card">
                 <div class="section-title">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -274,43 +143,8 @@
                                 <th>মন্তব্য (Remarks)</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td style="text-align:left;">Sohan Shekh</td>
-                                <td>5 Jan-2026</td>
-                                <td class="text-danger">2,000 ৳</td>
-                                <td>5000-3000</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left;">Maruf Hossain</td>
-                                <td>12 May-2026</td>
-                                <td class="text-danger">130 ৳</td>
-                                <td>Mobil Load</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left;">Abdullah Arafat</td>
-                                <td>12 May-2026</td>
-                                <td class="text-danger">300 ৳</td>
-                                <td>bkas</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left;">Sohanur</td>
-                                <td>25 Aug-2026</td>
-                                <td class="text-danger">1,500 ৳</td>
-                                <td>others purpose</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left;">Riad</td>
-                                <td>29 Aug-2026</td>
-                                <td class="text-danger">2,000 ৳</td>
-                                <td>Wife Perpose</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left;">Khairul</td>
-                                <td>18 Aug-2026</td>
-                                <td class="text-danger">2,000 ৳</td>
-                                <td>Wife Perpose</td>
-                            </tr>
+                        <tbody id="loan-table-body">
+                            <tr><td colspan="4">Loading data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -324,22 +158,21 @@
                 <ul class="overview-list">
                     <li class="overview-item">
                         <span>Total Sent House</span>
-                        <strong id="ov-sent">-- ৳</strong>
+                        <strong id="ov-sent">Loading...</strong>
                     </li>
                     <li class="overview-item">
                         <span>Total Loan</span>
-                        <strong class="text-danger">7,930 ৳</strong>
+                        <strong class="text-danger" id="ov-loan">7,930 ৳</strong>
                     </li>
                     <li class="overview-item">
                         <span>Total Others Costing</span>
-                        <strong id="ov-edu">-- ৳</strong>
+                        <strong id="ov-edu">Loading...</strong>
                     </li>
                 </ul>
             </div>
-
         </div>
 
-        <!-- dynamic slider section -->
+        <!-- Dynamic Category Tables Slider -->
         <div class="glass-card">
             <div class="section-title">
                 <i class="fa-solid fa-calendar-days"></i>
@@ -349,7 +182,7 @@
 
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="slider-content">
-                    <!-- Dynamic Slide HTML Here -->
+                    <!-- Dynamic Slide Content -->
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -363,133 +196,132 @@
         <p>&copy; <span id="year"></span> <span>Ahad Ali Lelin</span>. All Rights Reserved.</p>
     </footer>
 
-    <!-- Swiper JS CDN -->
+    <!-- JS Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L/pub?gid=0&single=true&output=csv';
+        // Google Sheet Key
+        const SPREADSHEET_ID = '1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L';
 
-        // CSV পার্সার
-        function parseCSV(text) {
-            let lines = text.split(/\r\n|\n/);
-            return lines.map(line => {
-                let row = [];
-                let inQuotes = false;
-                let current = '';
-                for (let i = 0; i < line.length; i++) {
-                    let char = line[i];
-                    if (char === '"') {
-                        inQuotes = !inQuotes;
-                    } else if (char === ',' && !inQuotes) {
-                        row.push(current.trim());
-                        current = '';
-                    } else {
-                        current += char;
-                    }
-                }
-                row.push(current.trim());
-                return row;
-            });
+        // Load Google Visualization API
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(fetchSheetData);
+
+        function fetchSheetData() {
+            const query = new google.visualization.Query(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`);
+            query.send(handleQueryResponse);
         }
 
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(GOOGLE_SHEET_CSV_URL + '&t=' + new Date().getTime());
-                const csvText = await response.text();
-                const rawRows = parseCSV(csvText);
-
-                let tables = [];
-                let currentTable = null;
-
-                // গুগল শিটের ব্লকসমূহ আলাদা করার নিখুঁত লজিক
-                for (let i = 0; i < rawRows.length; i++) {
-                    let row = rawRows[i];
-                    let firstCell = row[0] ? row[0].replace(/"/g, '').trim() : '';
-
-                    // যদি "Total" দিয়ে শুরু হওয়া টাইটেল হেডার হয় (যেমন: Total Income 694485)
-                    if (firstCell.toLowerCase().startsWith('total')) {
-                        if (currentTable) tables.push(currentTable);
-                        
-                        let totalVal = row[1] || row[2] || '';
-                        currentTable = {
-                            title: firstCell,
-                            totalAmount: totalVal.replace(/,/g, ''),
-                            headers: [],
-                            rows: []
-                        };
-                    } 
-                    // যদি Year/Month হেডার টাইটেল হয়
-                    else if (firstCell.toLowerCase().includes('year/month') && currentTable) {
-                        currentTable.headers = row.filter(c => c !== '');
-                    } 
-                    // সাধারণ ডাটা রো (মাস ও বছরের সংখ্যা)
-                    else if (firstCell && currentTable) {
-                        if (row.some(c => c !== '')) {
-                            currentTable.rows.push(row);
-                        }
-                    }
-                }
-                if (currentTable) tables.push(currentTable);
-
-                // ওয়েবসাইট আপডেট
-                updateStatsCards(tables);
-                renderSlides(tables);
-
-            } catch (error) {
-                console.error("Data Fetching Error:", error);
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                console.error('Error fetching sheet data: ' + response.getMessage());
+                document.getElementById('sync-status').innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Sync Error';
+                return;
             }
+
+            const dataTable = response.getDataTable();
+            const numRows = dataTable.getNumberOfRows();
+            const numCols = dataTable.getNumberOfColumns();
+
+            let rows = [];
+            for (let r = 0; r < numRows; r++) {
+                let row = [];
+                for (let c = 0; c < numCols; c++) {
+                    let val = dataTable.getFormattedValue(r, c) || dataTable.getValue(r, c);
+                    row.push(val ? val.toString().trim() : '');
+                }
+                rows.push(row);
+            }
+
+            processSheetBlocks(rows);
         }
 
-        // কাস্টম কার্ডে ডাটা বসানো
-        function updateStatsCards(tables) {
+        function processSheetBlocks(rows) {
+            let tables = [];
+            let currentTable = null;
+
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let firstCell = row[0] || '';
+
+                if (firstCell.toLowerCase().startsWith('total')) {
+                    if (currentTable) tables.push(currentTable);
+                    let totalVal = row[1] || row[2] || '';
+                    currentTable = {
+                        title: firstCell,
+                        totalAmount: totalVal.replace(/,/g, ''),
+                        headers: [],
+                        rows: []
+                    };
+                } else if (firstCell.toLowerCase().includes('year/month') && currentTable) {
+                    currentTable.headers = row.filter(c => c !== '');
+                } else if (firstCell && currentTable) {
+                    if (row.some(c => c !== '')) {
+                        currentTable.rows.push(row);
+                    }
+                }
+            }
+            if (currentTable) tables.push(currentTable);
+
+            updateCards(tables);
+            renderSlides(tables);
+            renderLoanTable(rows);
+        }
+
+        function updateCards(tables) {
             tables.forEach(t => {
                 let title = t.title.toLowerCase();
-                let amountStr = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '-- ৳';
+                let amount = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '0 ৳';
 
                 if (title.includes('income')) {
-                    document.getElementById('stat-income').innerText = amountStr;
+                    document.getElementById('stat-income').innerText = amount;
                 } else if (title.includes('house rent')) {
-                    document.getElementById('stat-rent').innerText = amountStr;
+                    document.getElementById('stat-rent').innerText = amount;
                 } else if (title.includes('mill') || title.includes('meal')) {
-                    document.getElementById('stat-meal').innerText = amountStr;
+                    document.getElementById('stat-meal').innerText = amount;
                 } else if (title.includes('sent house') || title.includes('sent')) {
-                    document.getElementById('stat-sent').innerText = amountStr;
-                    document.getElementById('ov-sent').innerText = amountStr;
+                    document.getElementById('stat-sent').innerText = amount;
+                    document.getElementById('ov-sent').innerText = amount;
                 } else if (title.includes('education') || title.includes('others')) {
-                    document.getElementById('stat-edu').innerText = amountStr;
-                    document.getElementById('ov-edu').innerText = amountStr;
+                    document.getElementById('stat-edu').innerText = amount;
+                    document.getElementById('ov-edu').innerText = amount;
                 }
             });
         }
 
-        // স্লাইডার টেবিল তৈরি
+        function renderLoanTable(rows) {
+            let html = `
+                <tr><td style="text-align:left;">Sohan Shekh</td><td>5 Jan-2026</td><td class="text-danger">2,000 ৳</td><td>5000-3000</td></tr>
+                <tr><td style="text-align:left;">Maruf Hossain</td><td>12 May-2026</td><td class="text-danger">130 ৳</td><td>Mobil Load</td></tr>
+                <tr><td style="text-align:left;">Abdullah Arafat</td><td>12 May-2026</td><td class="text-danger">300 ৳</td><td>bkas</td></tr>
+                <tr><td style="text-align:left;">Sohanur</td><td>25 Aug-2026</td><td class="text-danger">1,500 ৳</td><td>others purpose</td></tr>
+                <tr><td style="text-align:left;">Riad</td><td>29 Aug-2026</td><td class="text-danger">2,000 ৳</td><td>Wife Perpose</td></tr>
+                <tr><td style="text-align:left;">Khairul</td><td>18 Aug-2026</td><td class="text-danger">2,000 ৳</td><td>Wife Perpose</td></tr>
+            `;
+            document.getElementById('loan-table-body').innerHTML = html;
+        }
+
         function renderSlides(tables) {
             const sliderWrapper = document.getElementById('slider-content');
             sliderWrapper.innerHTML = '';
 
             tables.forEach(t => {
-                // হেডার কলাম তৈরি
-                let thHtml = '';
-                t.headers.forEach(h => {
-                    thHtml += `<th>${h}</th>`;
-                });
-
-                // রো তৈরি
+                let thHtml = t.headers.map(h => `<th>${h}</th>`).join('');
                 let trHtml = '';
+
                 t.rows.forEach(r => {
                     let isTotalRow = r[0].toLowerCase().includes('total year');
                     let rowClass = isTotalRow ? 'class="total-row"' : '';
-                    
                     let tdContent = '';
-                    for (let colIdx = 0; colIdx < t.headers.length; colIdx++) {
-                        let cellVal = r[colIdx] ? r[colIdx].replace(/"/g, '') : '';
-                        
-                        if (colIdx === 0) {
+
+                    for (let c = 0; c < t.headers.length; c++) {
+                        let cellVal = r[c] || '';
+                        if (c === 0) {
                             tdContent += `<td class="month-col">${cellVal}</td>`;
                         } else {
-                            // সংখ্যা হলে কমা ফরম্যাট করবে
                             let num = Number(cellVal.replace(/,/g, ''));
                             let displayVal = (!isNaN(num) && cellVal !== '') ? num.toLocaleString('en-US') : (cellVal || '-');
                             tdContent += `<td>${displayVal}</td>`;
@@ -498,18 +330,14 @@
                     trHtml += `<tr ${rowClass}>${tdContent}</tr>`;
                 });
 
-                // আইকন সিলেক্টর
                 let icon = "fa-table-list";
                 let lowerTitle = t.title.toLowerCase();
                 if (lowerTitle.includes("income")) icon = "fa-wallet";
                 else if (lowerTitle.includes("rent")) icon = "fa-house";
                 else if (lowerTitle.includes("mill") || lowerTitle.includes("meal")) icon = "fa-utensils";
 
-                let displayTitle = t.title;
-                if (t.totalAmount) {
-                    let formattedTotal = Number(t.totalAmount).toLocaleString('en-US');
-                    displayTitle = `${t.title.split(' ')[0]} ${t.title.split(' ')[1] || ''} : ${formattedTotal} ৳`;
-                }
+                let formattedTotal = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '';
+                let displayTitle = `${t.title} ${formattedTotal ? ': ' + formattedTotal : ''}`;
 
                 const slideHtml = `
                     <div class="swiper-slide">
@@ -541,19 +369,14 @@
                 loop: false,
                 autoplay: { delay: 5000, disableOnInteraction: false },
                 pagination: { el: ".swiper-pagination", clickable: true },
-                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-                breakpoints: {
-                    768: { slidesPerView: 1 },
-                    1024: { slidesPerView: 1 } // টেবিলগুলোর প্রসস্থতার জন্য ১টি করে স্লাইড রাখা সুবিধাজনক
-                }
+                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
             });
         }
 
-        // প্রথমবার ডাটা লোড ও প্রতি ১ মিনিটে অটোরিলোড
-        fetchSheetData();
+        // Auto Refresh Every 1 Minute
         setInterval(fetchSheetData, 60000);
 
-        /* Background Particle Canvas */
+        /* Canvas Particle Background */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
