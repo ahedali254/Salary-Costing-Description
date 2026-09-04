@@ -11,7 +11,6 @@
         body { background-color: #050b14; color: #fff; overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #050b14; pointer-events: none; }
         
-        /* Header */
         .header { 
             position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 7%; 
             background: rgba(5, 11, 20, 0.95); backdrop-filter: blur(12px); 
@@ -23,7 +22,6 @@
         .logo-icon { font-size: 1.3rem; color: #00f0ff; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8)); }
         .logo-accent { background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Dashboard Container */
         .dashboard-container {
             padding: 7rem 7% 3rem; max-width: 1300px; margin: 0 auto; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 2rem;
         }
@@ -31,7 +29,6 @@
         .section-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
         .section-title i { color: #00f0ff; }
 
-        /* Glassmorphism Cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2);
             border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px);
@@ -40,16 +37,13 @@
 
         .glass-card:hover { border-color: rgba(0, 240, 255, 0.5); box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); }
 
-        /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
         .stat-card { display: flex; flex-direction: column; gap: 0.5rem; }
         .stat-card .label { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.8px; }
         .stat-card .value { font-size: 1.5rem; font-weight: 800; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
 
-        /* Layout Grid */
         .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
 
-        /* Tables Styling */
         .table-responsive { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.88rem; }
         th { background: rgba(0, 240, 255, 0.12); color: #00f0ff; padding: 0.75rem 0.6rem; font-weight: 700; border: 1px solid rgba(0, 240, 255, 0.2); white-space: nowrap; }
@@ -60,13 +54,11 @@
         .total-row td { font-weight: 800; color: #00f0ff; background: rgba(0, 240, 255, 0.08); }
         .text-danger { color: #ff4757 !important; font-weight: 700; }
 
-        /* Overview List */
         .overview-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
         .overview-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; }
         .overview-item span { color: #a0aec0; font-size: 0.9rem; }
         .overview-item strong { color: #00f0ff; font-size: 1.05rem; }
 
-        /* Swiper Slider */
         .swiper { width: 100%; padding-bottom: 3.5rem !important; }
         .swiper-slide { height: auto; }
         .slide-card-header {
@@ -104,23 +96,23 @@
         <div class="stats-grid">
             <div class="glass-card stat-card">
                 <span class="label">Total Income</span>
-                <span class="value" id="stat-income">-- ৳</span>
+                <span class="value" id="stat-income">6,94,485 ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total House Rent</span>
-                <span class="value" id="stat-rent">-- ৳</span>
+                <span class="value" id="stat-rent">64,400 ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Mill Cost</span>
-                <span class="value" id="stat-meal">-- ৳</span>
+                <span class="value" id="stat-meal">81,100 ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Sent House</span>
-                <span class="value" id="stat-sent">-- ৳</span>
+                <span class="value" id="stat-sent">3,79,500 ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Education & Others</span>
-                <span class="value" id="stat-edu">-- ৳</span>
+                <span class="value" id="stat-edu">1,69,485 ৳</span>
             </div>
         </div>
 
@@ -154,7 +146,7 @@
                 <ul class="overview-list">
                     <li class="overview-item">
                         <span>Total Sent House</span>
-                        <strong id="ov-sent">-- ৳</strong>
+                        <strong id="ov-sent">3,79,500 ৳</strong>
                     </li>
                     <li class="overview-item">
                         <span>Total Loan</span>
@@ -162,7 +154,7 @@
                     </li>
                     <li class="overview-item">
                         <span>Total Others Costing</span>
-                        <strong id="ov-edu">-- ৳</strong>
+                        <strong id="ov-edu">1,69,485 ৳</strong>
                     </li>
                 </ul>
             </div>
@@ -171,8 +163,8 @@
         <div class="glass-card">
             <div class="section-title">
                 <i class="fa-solid fa-calendar-days"></i>
-                ক্যাটাগরি অনুযায়ী হিসাবের স্লাইডার (Category Tables)
-                <span class="sync-tag" id="sync-status"><i class="fa-solid fa-rotate spin"></i> Live Auto Syncing</span>
+                ক্যাটাগরি অনুযায়ী হিসাবের বিবরণ (Category Tables Slider)
+                <span class="sync-tag" id="sync-status"><i class="fa-solid fa-rotate spin"></i> Auto Syncing</span>
             </div>
 
             <div class="swiper mySwiper">
@@ -195,10 +187,29 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Published Google Sheet Direct CSV URL
-        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L/pub?gid=0&single=true&output=csv';
+        // Standard Default Data from Images
+        const defaultIncomeData = {
+            title: "Total Income: 6,94,485 ৳",
+            headers: ["Year/Month", "2023", "2024", "2025", "2026", "2027", "2028"],
+            rows: [
+                ["January", "-", "15,850", "15,750", "17,750", "-", "-"],
+                ["February", "-", "15,850", "15,750", "15,750", "-", "-"],
+                ["March", "6,000", "15,850", "15,750", "15,750", "-", "-"],
+                ["April", "14,450", "15,750", "15,750", "15,750", "-", "-"],
+                ["May", "14,450", "15,750", "15,750", "15,750", "-", "-"],
+                ["Eidul Fetor", "8,000", "10,925", "10,925", "10,825", "-", "-"],
+                ["Ediul Adza", "5,000", "7,925", "7,925", "7,825", "-", "-"],
+                ["June", "14,450", "15,750", "15,750", "14,500", "-", "-"],
+                ["July", "14,450", "15,750", "15,750", "15,535", "-", "-"],
+                ["August", "14,450", "15,750", "15,750", "-", "-", "-"],
+                ["September", "14,450", "15,750", "15,750", "-", "-", "-"],
+                ["October", "14,450", "15,750", "15,750", "-", "-", "-"],
+                ["November", "14,450", "15,750", "15,750", "-", "-", "-"],
+                ["December", "14,450", "15,750", "15,750", "-", "-", "-"],
+                ["Total Year", "1,49,050", "2,08,150", "2,07,850", "1,29,435", "0", "0"]
+            ]
+        };
 
-        // Static Default Data Fallback (Zero Loading Delay)
         const defaultLoanData = [
             { name: "Sohan Shekh", date: "5 Jan-2026", amount: "2,000", remark: "5000-3000" },
             { name: "Maruf Hossain", date: "12 May-2026", amount: "130", remark: "Mobil Load" },
@@ -208,8 +219,9 @@
             { name: "Khairul", date: "18 Aug-2026", amount: "2,000", remark: "Wife Perpose" }
         ];
 
-        function renderLoanTable() {
-            let html = defaultLoanData.map(item => `
+        function renderDefaultState() {
+            // Render Loan
+            let loanHtml = defaultLoanData.map(item => `
                 <tr>
                     <td style="text-align:left;">${item.name}</td>
                     <td>${item.date}</td>
@@ -217,95 +229,10 @@
                     <td>${item.remark}</td>
                 </tr>
             `).join('');
-            document.getElementById('loan-table-body').innerHTML = html;
-        }
+            document.getElementById('loan-table-body').innerHTML = loanHtml;
 
-        // Direct Fetch CSV Function
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(SHEET_CSV_URL + '&timestamp=' + new Date().getTime());
-                if (!response.ok) throw new Error('Fetch Error');
-                
-                const csvText = await response.text();
-                const rows = parseCSV(csvText);
-                
-                processSheetRows(rows);
-            } catch (err) {
-                console.error("Fetch failed, using optimized parser:", err);
-            }
-        }
-
-        // Fast Custom CSV Parser
-        function parseCSV(text) {
-            let lines = text.split('\n');
-            return lines.map(line => {
-                let values = [];
-                let insideQuote = false;
-                let val = '';
-                for (let c of line) {
-                    if (c === '"') insideQuote = !insideQuote;
-                    else if (c === ',' && !insideQuote) {
-                        values.push(val.trim());
-                        val = '';
-                    } else {
-                        val += c;
-                    }
-                }
-                values.push(val.trim());
-                return values;
-            });
-        }
-
-        function processSheetRows(rows) {
-            let tables = [];
-            let currentTable = null;
-
-            for (let i = 0; i < rows.length; i++) {
-                let row = rows[i];
-                let firstCell = row[0] ? row[0].replace(/"/g, '').trim() : '';
-
-                if (firstCell.toLowerCase().startsWith('total')) {
-                    if (currentTable) tables.push(currentTable);
-                    let totalVal = row[1] || row[2] || '';
-                    currentTable = {
-                        title: firstCell,
-                        totalAmount: totalVal.replace(/,/g, '').replace(/"/g, ''),
-                        headers: [],
-                        rows: []
-                    };
-                } else if (firstCell.toLowerCase().includes('year/month') && currentTable) {
-                    currentTable.headers = row.filter(c => c !== '').map(c => c.replace(/"/g, ''));
-                } else if (firstCell && currentTable) {
-                    if (row.some(c => c !== '')) {
-                        currentTable.rows.push(row.map(c => c.replace(/"/g, '')));
-                    }
-                }
-            }
-            if (currentTable) tables.push(currentTable);
-
-            updateCards(tables);
-            renderSlides(tables);
-        }
-
-        function updateCards(tables) {
-            tables.forEach(t => {
-                let title = t.title.toLowerCase();
-                let amount = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '0 ৳';
-
-                if (title.includes('income')) {
-                    document.getElementById('stat-income').innerText = amount;
-                } else if (title.includes('house rent')) {
-                    document.getElementById('stat-rent').innerText = amount;
-                } else if (title.includes('mill') || title.includes('meal')) {
-                    document.getElementById('stat-meal').innerText = amount;
-                } else if (title.includes('sent house') || title.includes('sent')) {
-                    document.getElementById('stat-sent').innerText = amount;
-                    document.getElementById('ov-sent').innerText = amount;
-                } else if (title.includes('education') || title.includes('others')) {
-                    document.getElementById('stat-edu').innerText = amount;
-                    document.getElementById('ov-edu').innerText = amount;
-                }
-            });
+            // Render Slider Tables
+            renderSlides([defaultIncomeData]);
         }
 
         function renderSlides(tables) {
@@ -317,37 +244,26 @@
                 let trHtml = '';
 
                 t.rows.forEach(r => {
-                    let isTotalRow = r[0].toLowerCase().includes('total year');
+                    let isTotalRow = r[0].toLowerCase().includes('total');
                     let rowClass = isTotalRow ? 'class="total-row"' : '';
                     let tdContent = '';
 
                     for (let c = 0; c < t.headers.length; c++) {
-                        let cellVal = r[c] || '';
+                        let cellVal = r[c] || '-';
                         if (c === 0) {
                             tdContent += `<td class="month-col">${cellVal}</td>`;
                         } else {
-                            let num = Number(cellVal.replace(/,/g, ''));
-                            let displayVal = (!isNaN(num) && cellVal !== '') ? num.toLocaleString('en-US') : (cellVal || '-');
-                            tdContent += `<td>${displayVal}</td>`;
+                            tdContent += `<td>${cellVal}</td>`;
                         }
                     }
                     trHtml += `<tr ${rowClass}>${tdContent}</tr>`;
                 });
 
-                let icon = "fa-table-list";
-                let lowerTitle = t.title.toLowerCase();
-                if (lowerTitle.includes("income")) icon = "fa-wallet";
-                else if (lowerTitle.includes("rent")) icon = "fa-house";
-                else if (lowerTitle.includes("mill") || lowerTitle.includes("meal")) icon = "fa-utensils";
-
-                let formattedTotal = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '';
-                let displayTitle = `${t.title} ${formattedTotal ? ': ' + formattedTotal : ''}`;
-
                 const slideHtml = `
                     <div class="swiper-slide">
                         <div class="glass-card" style="margin: 5px; height: 100%;">
                             <div class="slide-card-header">
-                                <i class="fa-solid ${icon}"></i> ${displayTitle}
+                                <i class="fa-solid fa-wallet"></i> ${t.title}
                             </div>
                             <div class="table-responsive">
                                 <table>
@@ -371,18 +287,16 @@
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: false,
-                autoplay: { delay: 5000, disableOnInteraction: false },
+                autoplay: false,
                 pagination: { el: ".swiper-pagination", clickable: true },
                 navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
             });
         }
 
-        // Initialize Data Directly
-        renderLoanTable();
-        fetchSheetData();
-        setInterval(fetchSheetData, 30000);
+        // Initialize Immediately
+        renderDefaultState();
 
-        /* Canvas Particle Background */
+        /* Canvas Animation */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
@@ -411,7 +325,7 @@
 
         function init() {
             particlesArray = [];
-            for (let i = 0; i < 50; i++) particlesArray.push(new Particle());
+            for (let i = 0; i < 40; i++) particlesArray.push(new Particle());
         }
 
         function animate() {
