@@ -12,7 +12,7 @@
         body { background-color: #050b14; color: #fff; overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #050b14; pointer-events: none; }
         
-        /* Fixed Header Always Visible */
+        /* Fixed Header */
         .header { 
             position: fixed; 
             top: 0; 
@@ -104,10 +104,11 @@
         }
 
         .stat-card .label {
-            font-size: 0.85rem;
-            color: #a0aec0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #e2e8f0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .stat-card .value {
@@ -133,32 +134,34 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
-            font-size: 0.92rem;
+            text-align: center;
+            font-size: 0.9rem;
         }
 
         th {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.12);
             color: #00f0ff;
-            padding: 0.75rem 0.9rem;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 0.75rem 0.6rem;
+            font-weight: 700;
+            border: 1px solid rgba(0, 240, 255, 0.2);
             white-space: nowrap;
         }
 
         td {
-            padding: 0.7rem 0.9rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.65rem 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: #d1d5db;
             white-space: nowrap;
         }
 
         tr:hover td {
-            background: rgba(0, 240, 255, 0.04);
+            background: rgba(0, 240, 255, 0.05);
             color: #fff;
         }
 
-        .text-neon { color: #00f0ff !important; font-weight: 700; }
+        .month-col { text-align: left; font-weight: 600; color: #fff; background: rgba(255,255,255,0.02); }
+        .total-row td { font-weight: 800; color: #00f0ff; background: rgba(0, 240, 255, 0.08); }
+        .text-neon { color: #00f0ff !important; font-weight: 600; }
         .text-danger { color: #ff4757 !important; font-weight: 700; }
 
         /* Overview List */
@@ -186,7 +189,7 @@
         .swiper { width: 100%; padding-bottom: 3.5rem !important; }
         .swiper-slide { height: auto; }
         .slide-card-header {
-            font-size: 1.15rem; font-weight: 700; color: #00f0ff; 
+            font-size: 1.2rem; font-weight: 800; color: #00f0ff; 
             text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); margin-bottom: 1rem;
             text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 0.6rem;
             display: flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -196,6 +199,8 @@
         .swiper-pagination-bullet-active { background: #00f0ff !important; box-shadow: 0 0 10px #00f0ff; }
         
         .sync-tag { font-size: 0.75rem; background: rgba(0, 240, 255, 0.1); color: #00f0ff; padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.3); margin-left: auto; }
+
+        .spin { animation: fa-spin 2s infinite linear; }
 
         /* Footer */
         .footer {
@@ -227,31 +232,31 @@
 
     <div class="dashboard-container">
         
-        <!-- Stats Grid (আগের মতোই অক্ষত) -->
+        <!-- Stats Grid (স্বয়ংক্রিয় আপডেট হবে) -->
         <div class="stats-grid">
             <div class="glass-card stat-card">
                 <span class="label">Total Income</span>
-                <span class="value" id="stat-income">6,94,485 ৳</span>
+                <span class="value" id="stat-income">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total House Rent</span>
-                <span class="value" id="stat-rent">64,400 ৳</span>
+                <span class="value" id="stat-rent">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Mill Cost</span>
-                <span class="value" id="stat-meal">81,100 ৳</span>
+                <span class="value" id="stat-meal">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Total Sent House</span>
-                <span class="value" id="stat-sent">3,79,500 ৳</span>
+                <span class="value" id="stat-sent">-- ৳</span>
             </div>
             <div class="glass-card stat-card">
                 <span class="label">Education & Others</span>
-                <span class="value" id="stat-edu">1,69,485 ৳</span>
+                <span class="value" id="stat-edu">-- ৳</span>
             </div>
         </div>
 
-        <!-- Dashboard Grid (আগের মতোই অক্ষত) -->
+        <!-- Dashboard Grid -->
         <div class="dashboard-grid">
             
             <div class="glass-card">
@@ -263,7 +268,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>নাম (Name)</th>
+                                <th style="text-align:left;">নাম (Name)</th>
                                 <th>তারিখ (Date)</th>
                                 <th>পরিমাণ (Amount)</th>
                                 <th>মন্তব্য (Remarks)</th>
@@ -271,37 +276,37 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Sohan Shekh</td>
+                                <td style="text-align:left;">Sohan Shekh</td>
                                 <td>5 Jan-2026</td>
                                 <td class="text-danger">2,000 ৳</td>
                                 <td>5000-3000</td>
                             </tr>
                             <tr>
-                                <td>Maruf Hossain</td>
+                                <td style="text-align:left;">Maruf Hossain</td>
                                 <td>12 May-2026</td>
                                 <td class="text-danger">130 ৳</td>
                                 <td>Mobil Load</td>
                             </tr>
                             <tr>
-                                <td>Abdullah Arafat</td>
+                                <td style="text-align:left;">Abdullah Arafat</td>
                                 <td>12 May-2026</td>
                                 <td class="text-danger">300 ৳</td>
                                 <td>bkas</td>
                             </tr>
                             <tr>
-                                <td>Sohanur</td>
+                                <td style="text-align:left;">Sohanur</td>
                                 <td>25 Aug-2026</td>
                                 <td class="text-danger">1,500 ৳</td>
                                 <td>others purpose</td>
                             </tr>
                             <tr>
-                                <td>Riad</td>
+                                <td style="text-align:left;">Riad</td>
                                 <td>29 Aug-2026</td>
                                 <td class="text-danger">2,000 ৳</td>
                                 <td>Wife Perpose</td>
                             </tr>
                             <tr>
-                                <td>Khairul</td>
+                                <td style="text-align:left;">Khairul</td>
                                 <td>18 Aug-2026</td>
                                 <td class="text-danger">2,000 ৳</td>
                                 <td>Wife Perpose</td>
@@ -319,7 +324,7 @@
                 <ul class="overview-list">
                     <li class="overview-item">
                         <span>Total Sent House</span>
-                        <strong>3,79,500 ৳</strong>
+                        <strong id="ov-sent">-- ৳</strong>
                     </li>
                     <li class="overview-item">
                         <span>Total Loan</span>
@@ -327,19 +332,19 @@
                     </li>
                     <li class="overview-item">
                         <span>Total Others Costing</span>
-                        <strong>5,200 ৳</strong>
+                        <strong id="ov-edu">-- ৳</strong>
                     </li>
                 </ul>
             </div>
 
         </div>
 
-        <!-- 🔴 স্লাইডার সেকশন: Google Sheet থেকে ডাটা অটো-ডিটেক্ট করে ক্যাটাগরি অনুযায়ী স্লাইডে দেখাবে -->
+        <!-- dynamic slider section -->
         <div class="glass-card">
             <div class="section-title">
                 <i class="fa-solid fa-calendar-days"></i>
                 ক্যাটাগরি অনুযায়ী হিসাবের স্লাইডার (Category Tables)
-                <span class="sync-tag" id="sync-status"><i class="fa-solid fa-rotate spin"></i> Auto Syncing</span>
+                <span class="sync-tag" id="sync-status"><i class="fa-solid fa-rotate spin"></i> Live Auto Syncing</span>
             </div>
 
             <div class="swiper mySwiper">
@@ -366,7 +371,7 @@
 
         const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVJHheAbvyWmpN4Y4u6X4DYWDFINGcjpqAB26we6cBu8naEGr6Uo3FzJHqdbnLxaL8TkmZFvhWRr6L/pub?gid=0&single=true&output=csv';
 
-        // CSV পার্স করার নিরাপদ ফাংশন
+        // CSV পার্সার
         function parseCSV(text) {
             let lines = text.split(/\r\n|\n/);
             return lines.map(line => {
@@ -386,92 +391,136 @@
                 }
                 row.push(current.trim());
                 return row;
-            }).filter(row => row.some(cell => cell !== ''));
+            });
         }
 
         async function fetchSheetData() {
             try {
                 const response = await fetch(GOOGLE_SHEET_CSV_URL + '&t=' + new Date().getTime());
                 const csvText = await response.text();
-                const rows = parseCSV(csvText);
+                const rawRows = parseCSV(csvText);
 
-                if (rows.length < 2) return;
+                let tables = [];
+                let currentTable = null;
 
-                const headers = rows[0]; // কলামের শিরোনামগুলো (Month / Years)
-                let categories = [];
-                let currentCategory = null;
+                // গুগল শিটের ব্লকসমূহ আলাদা করার নিখুঁত লজিক
+                for (let i = 0; i < rawRows.length; i++) {
+                    let row = rawRows[i];
+                    let firstCell = row[0] ? row[0].replace(/"/g, '').trim() : '';
 
-                // শিট থেকে ক্যাটাগরি ও রো ফিল্টার করে পৃথক করা
-                for (let i = 1; i < rows.length; i++) {
-                    let firstCell = rows[i][0] ? rows[i][0].replace(/"/g, '').trim() : '';
-                    if (!firstCell) continue;
-
-                    // যদি রো-তে শুধু একটি বড় নাম থাকে বা বছর না থাকে
-                    let isHeaderRow = rows[i].slice(1).every(cell => !cell || cell === '-' || cell === '0');
-
-                    if (isHeaderRow || firstCell.toLowerCase().includes('total') || firstCell.toLowerCase().includes('das board') || !rows[i][1]) {
-                        if (currentCategory && currentCategory.rows.length > 0) {
-                            categories.push(currentCategory);
+                    // যদি "Total" দিয়ে শুরু হওয়া টাইটেল হেডার হয় (যেমন: Total Income 694485)
+                    if (firstCell.toLowerCase().startsWith('total')) {
+                        if (currentTable) tables.push(currentTable);
+                        
+                        let totalVal = row[1] || row[2] || '';
+                        currentTable = {
+                            title: firstCell,
+                            totalAmount: totalVal.replace(/,/g, ''),
+                            headers: [],
+                            rows: []
+                        };
+                    } 
+                    // যদি Year/Month হেডার টাইটেল হয়
+                    else if (firstCell.toLowerCase().includes('year/month') && currentTable) {
+                        currentTable.headers = row.filter(c => c !== '');
+                    } 
+                    // সাধারণ ডাটা রো (মাস ও বছরের সংখ্যা)
+                    else if (firstCell && currentTable) {
+                        if (row.some(c => c !== '')) {
+                            currentTable.rows.push(row);
                         }
-                        currentCategory = { title: firstCell, rows: [] };
-                    } else {
-                        if (!currentCategory) {
-                            currentCategory = { title: "মাসিক হিসাব বিবরণী", rows: [] };
-                        }
-                        currentCategory.rows.push(rows[i]);
                     }
                 }
-                if (currentCategory && currentCategory.rows.length > 0) {
-                    categories.push(currentCategory);
-                }
+                if (currentTable) tables.push(currentTable);
 
-                // স্লাইড রেন্ডার
-                renderSlides(headers, categories);
+                // ওয়েবসাইট আপডেট
+                updateStatsCards(tables);
+                renderSlides(tables);
 
             } catch (error) {
                 console.error("Data Fetching Error:", error);
             }
         }
 
-        function renderSlides(headers, categories) {
+        // কাস্টম কার্ডে ডাটা বসানো
+        function updateStatsCards(tables) {
+            tables.forEach(t => {
+                let title = t.title.toLowerCase();
+                let amountStr = t.totalAmount ? Number(t.totalAmount).toLocaleString('en-US') + ' ৳' : '-- ৳';
+
+                if (title.includes('income')) {
+                    document.getElementById('stat-income').innerText = amountStr;
+                } else if (title.includes('house rent')) {
+                    document.getElementById('stat-rent').innerText = amountStr;
+                } else if (title.includes('mill') || title.includes('meal')) {
+                    document.getElementById('stat-meal').innerText = amountStr;
+                } else if (title.includes('sent house') || title.includes('sent')) {
+                    document.getElementById('stat-sent').innerText = amountStr;
+                    document.getElementById('ov-sent').innerText = amountStr;
+                } else if (title.includes('education') || title.includes('others')) {
+                    document.getElementById('stat-edu').innerText = amountStr;
+                    document.getElementById('ov-edu').innerText = amountStr;
+                }
+            });
+        }
+
+        // স্লাইডার টেবিল তৈরি
+        function renderSlides(tables) {
             const sliderWrapper = document.getElementById('slider-content');
             sliderWrapper.innerHTML = '';
 
-            // যদি ক্যাটাগরি ডিটেক্ট করা যায়, আলাদা স্লাইড তৈরি হবে
-            categories.forEach(cat => {
-                let tableHeaderHtml = `<th>Month / Label</th>`;
-                for (let c = 1; c < headers.length; c++) {
-                    if (headers[c]) tableHeaderHtml += `<th>${headers[c]}</th>`;
-                }
-
-                let tableBodyHtml = '';
-                cat.rows.forEach(r => {
-                    let rowHtml = `<td>${r[0]}</td>`;
-                    for (let c = 1; c < headers.length; c++) {
-                        if (headers[c]) {
-                            let val = r[c] ? r[c].replace(/"/g, '') : '-';
-                            rowHtml += `<td class="text-neon">${val}</td>`;
-                        }
-                    }
-                    tableBodyHtml += `<tr>${rowHtml}</tr>`;
+            tables.forEach(t => {
+                // হেডার কলাম তৈরি
+                let thHtml = '';
+                t.headers.forEach(h => {
+                    thHtml += `<th>${h}</th>`;
                 });
 
-                // সুন্দর আইকন সিলেক্টর
+                // রো তৈরি
+                let trHtml = '';
+                t.rows.forEach(r => {
+                    let isTotalRow = r[0].toLowerCase().includes('total year');
+                    let rowClass = isTotalRow ? 'class="total-row"' : '';
+                    
+                    let tdContent = '';
+                    for (let colIdx = 0; colIdx < t.headers.length; colIdx++) {
+                        let cellVal = r[colIdx] ? r[colIdx].replace(/"/g, '') : '';
+                        
+                        if (colIdx === 0) {
+                            tdContent += `<td class="month-col">${cellVal}</td>`;
+                        } else {
+                            // সংখ্যা হলে কমা ফরম্যাট করবে
+                            let num = Number(cellVal.replace(/,/g, ''));
+                            let displayVal = (!isNaN(num) && cellVal !== '') ? num.toLocaleString('en-US') : (cellVal || '-');
+                            tdContent += `<td>${displayVal}</td>`;
+                        }
+                    }
+                    trHtml += `<tr ${rowClass}>${tdContent}</tr>`;
+                });
+
+                // আইকন সিলেক্টর
                 let icon = "fa-table-list";
-                if (cat.title.toLowerCase().includes("income")) icon = "fa-wallet";
-                else if (cat.title.toLowerCase().includes("rent")) icon = "fa-house";
-                else if (cat.title.toLowerCase().includes("meal") || cat.title.toLowerCase().includes("mill")) icon = "fa-utensils";
+                let lowerTitle = t.title.toLowerCase();
+                if (lowerTitle.includes("income")) icon = "fa-wallet";
+                else if (lowerTitle.includes("rent")) icon = "fa-house";
+                else if (lowerTitle.includes("mill") || lowerTitle.includes("meal")) icon = "fa-utensils";
+
+                let displayTitle = t.title;
+                if (t.totalAmount) {
+                    let formattedTotal = Number(t.totalAmount).toLocaleString('en-US');
+                    displayTitle = `${t.title.split(' ')[0]} ${t.title.split(' ')[1] || ''} : ${formattedTotal} ৳`;
+                }
 
                 const slideHtml = `
                     <div class="swiper-slide">
                         <div class="glass-card" style="margin: 5px; height: 100%;">
                             <div class="slide-card-header">
-                                <i class="fa-solid ${icon}"></i> ${cat.title}
+                                <i class="fa-solid ${icon}"></i> ${displayTitle}
                             </div>
                             <div class="table-responsive">
                                 <table>
-                                    <thead><tr>${tableHeaderHtml}</tr></thead>
-                                    <tbody>${tableBodyHtml}</tbody>
+                                    <thead><tr>${thHtml}</tr></thead>
+                                    <tbody>${trHtml}</tbody>
                                 </table>
                             </div>
                         </div>
@@ -490,21 +539,21 @@
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: false,
-                autoplay: { delay: 4500, disableOnInteraction: false },
+                autoplay: { delay: 5000, disableOnInteraction: false },
                 pagination: { el: ".swiper-pagination", clickable: true },
                 navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
                 breakpoints: {
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
+                    768: { slidesPerView: 1 },
+                    1024: { slidesPerView: 1 } // টেবিলগুলোর প্রসস্থতার জন্য ১টি করে স্লাইড রাখা সুবিধাজনক
                 }
             });
         }
 
-        // প্রথমে ডাটা ফেচ করবে এবং প্রতি ১ মিনিটে নতুন ডেটা অটো সিঙ্ক করবে
+        // প্রথমবার ডাটা লোড ও প্রতি ১ মিনিটে অটোরিলোড
         fetchSheetData();
         setInterval(fetchSheetData, 60000);
 
-        /* Canvas Particle Animation */
+        /* Background Particle Canvas */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
